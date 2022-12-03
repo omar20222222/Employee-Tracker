@@ -11,8 +11,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^4.17.1",
+    "console-table-printer": "^2.11.1",
+    "console.table": "^0.10.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "inquirer": "^9.1.4",
     "jshint": "^2.12.0",
-    "mysql2": "^2.2.5"
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.20"
   }
 }
