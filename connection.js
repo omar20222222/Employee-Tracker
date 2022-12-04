@@ -1,5 +1,5 @@
-const mysql = require("mysql");
-const chalk = require("chalk");
+const mysql = require("mysql2");
+const chalk = import("chalk");
 
 connection = mysql.createConnection({
   host: "localhost",
@@ -11,12 +11,5 @@ connection = mysql.createConnection({
 });
 
 connection.connect((err) => {
-  if (err) {
-    console.log(chalk.white.bgRed(err));
-    return;
-  }
-
-  console.log(chalk.green(`Connected to db. ThreadID: ${connection.threadId}`));
+  if (err) throw err;
 });
-
-module.exports = connection;
