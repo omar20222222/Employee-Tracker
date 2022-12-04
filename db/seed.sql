@@ -6,6 +6,7 @@ VALUES
 ('Sales & Marketing'),
 ('Operations');
 
+
 INSERT INTO roles (title, salary, department_id)
 VALUES
 ('Full Stack Developer', 80000, 1),
@@ -20,12 +21,12 @@ VALUES
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
 VALUES 
-('Mark', 'Miller', 2, null),
-('Devin', 'Anderson', 1, 1),
-('Mary', 'Brown', 4, null),
-('Ashley', 'Jones', 3, 3),
-('Tyler', 'Moore', 6, null),
-('Ana', 'Sanchez', 5, 5),
-('Lewis', 'Allen', 7, null),
-('Katherine', 'Green', 8, 7);
+('Steve', 'James', 2, null),
+('Dani', 'Anderson', 1, 1),
+('Omar', 'Abdullahi', 4, null),
+('Yusuf', 'Amy', 3, 3),
+('Liban', 'Bashir', 6, null),
+('Abdurahman', 'Levi', 5, 5),
+('Shaffi', 'Ali', 7, null),
+('Roy', 'Curvin', 8, 7);
 

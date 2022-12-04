@@ -1,11 +1,11 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
-const chalk = import("chalk");
+const chalk = require("chalk");
 const cTable = require("console.table");
 const connection = require("./connection.js");
 const startScreen = [
   "View all Employees",
-  "View all Emplyees by Department",
+  "View all Employee by Department",
   "View all Employees by Manager",
   "Add Employee",
   "Remove Employee",
@@ -18,14 +18,15 @@ const startScreen = [
   "Remove Department",
   "Exit",
 ];
-const allEmployeeQuery = `SELECT e.id, e.first_name AS "First Name", e.last_name AS "Last Name", r.title, d.department_name AS "Department", IFNULL(r.salary, 'No Data') AS "Salary", CONCAT(m.first_name," ",m.last_name) AS "Manager"
-FROM employees e
-LEFT JOIN roles r 
-ON r.id = e.role_id 
-LEFT JOIN departments d 
-ON d.id = r.department_id
-LEFT JOIN employees m ON m.id = e.manager_id
-ORDER BY e.id;`;
+// const allEmployeeQuery = `SELECT e.id, e.first_name AS "First Name", e.last_name AS "Last Name", r.title, d.department_name AS "Department", IF NULL(r.salary, 'No Data') AS "Salary", CONCAT(m.first_name," ",m.last_name) AS "Manager"
+// FROM employees e
+// LEFT JOIN roles r
+// ON r.id = e.role_id
+// LEFT JOIN departments d
+// ON d.id = r.department_id
+// LEFT JOIN employees m ON m.id = e.manager_id
+// ORDER BY e.id;`;
+const allEmployeeQuery = `select * from employees`;
 const addEmployeeQuestions = [
   "What is their first name?",
   "What is their last name?",
@@ -50,7 +51,7 @@ const startApp = () => {
         case "View all Employees":
           showAll();
           break;
-        case "View all Emplyees by Department":
+        case "View all Employee by Department":
           showByDept();
           break;
         case "View all Employees by Manager":
@@ -98,6 +99,13 @@ const showAll = () => {
     startApp();
   });
 };
+// const showByDept = () => {
+//   const deptQuery = "SELECT * FROM departments";
+//   connection.query(deptQuery, (err, results) => {
+//     if (err) throw err;
+//     console.table(results);
+//   });
+// };
 
 const showByDept = () => {
   const deptQuery = "SELECT * FROM departments";
@@ -162,7 +170,7 @@ const showByManager = () => {
         },
       ])
       .then((answer) => {
-        const mgrQuery2 = `SELECT e.id, e.first_name AS "First Name", e.last_name AS "Last Name", IFNULL(r.title, "No Data") AS "Title", IFNULL(d.department_name, "No Data") AS "Department", IFNULL(r.salary, 'No Data') AS "Salary", CONCAT(m.first_name," ",m.last_name) AS "Manager"
+        const mgrQuery2 = `SELECT e.id, e.first_name AS "First Name", e.last_name AS "Last Name", IF NULL(r.title, "No Data") AS "Title", IF NULL(d.department_name, "No Data") AS "Department", IF NULL(r.salary, 'No Data') AS "Salary", CONCAT(m.first_name," ",m.last_name) AS "Manager"
                 FROM employees e
                 LEFT JOIN roles r 
                 ON r.id = e.role_id 
@@ -220,7 +228,7 @@ const addEmployee = () => {
         connection.query(
           `INSERT INTO employees(first_name, last_name, role_id, manager_id) VALUES(?, ?, 
                 (SELECT id FROM roles WHERE title = ? ), 
-                (SELECT id FROM (SELECT id FROM employees WHERE CONCAT(first_name," ",last_name) = ? ) AS tmptable))`,
+                (SELECT id FROM (SELECT id FROM employees WHERE CONCAT(first_name," ",last_name) = ? ) AS temptable))`,
           [answer.fName, answer.lName, answer.role, answer.manager]
         );
         startApp();
@@ -279,7 +287,7 @@ const updateRole = () => {
         connection.query(
           `UPDATE employees 
             SET role_id = (SELECT id FROM roles WHERE title = ? ) 
-            WHERE id = (SELECT id FROM(SELECT id FROM employees WHERE CONCAT(first_name," ",last_name) = ?) AS tmptable)`,
+            WHERE id = (SELECT id FROM(SELECT id FROM employees WHERE CONCAT(first_name," ",last_name) = ?) AS temptable)`,
           [answer.newRole, answer.empl],
           (err, results) => {
             if (err) throw err;
