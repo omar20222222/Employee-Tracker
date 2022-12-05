@@ -240,7 +240,6 @@ const addEmployee = () => {
         console.log(
           `Employee inserted successfully ${answer.fName} ${answer.lName}`
         );
-        // console.log(answer);
         startApp();
       });
   });
