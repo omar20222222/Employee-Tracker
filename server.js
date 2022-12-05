@@ -218,6 +218,7 @@ const addEmployee = () => {
           name: "manager",
           type: "list",
           choices: function () {
+            console.log(results);
             let choiceArray = results[1].map((choice) => choice.full_name);
             return choiceArray;
           },
@@ -226,13 +227,18 @@ const addEmployee = () => {
       ])
       .then((answer) => {
         connection.query(
-          ``,
+          `INSERT INTO EMPLOYEES (first_name, last_name, role_id, manager_id) 
+           VALUES (?, ?, (SELECT id FROM roles WHERE title = ?),
+           (SELECT id FROM (SELECT id FROM employees WHERE CONCAT(first_name," ",last_name) = ? ) AS temptable));`,
+          [answer.fName, answer.lName, answer.role, answer.manager]
 
           // (first_name, last_name, role_id, manager_id) VALUES(?, ?,
           // (SELECT id FROM roles WHERE title = ? ),
           // (SELECT id FROM (SELECT id FROM employees WHERE CONCAT(first_name," ",last_name) = ? ) AS temptable)),
           // [answer.fName, answer.lName, answer.role, answer.manager]
-          answer
+        );
+        console.log(
+          `Employee inserted successfully ${answer.fName} ${answer.lName}`
         );
         // console.log(answer);
         startApp();
