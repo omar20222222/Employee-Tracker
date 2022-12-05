@@ -192,56 +192,52 @@ const showByManager = () => {
 const addEmployee = () => {
   connection.query(roleQuery, (err, results) => {
     if (err) throw err;
-
-    inquirer
-      .prompt([
-        {
-          name: "fName",
-          type: "input",
-          message: addEmployeeQuestions[0],
+  });
+  inquirer
+    .prompt([
+      {
+        name: "fName",
+        type: "input",
+        message: addEmployeeQuestions[0],
+      },
+      {
+        name: "lName",
+        type: "input",
+        message: addEmployeeQuestions[1],
+      },
+      {
+        name: "role",
+        type: "list",
+        choices: function () {
+          let choiceArray = results[0].map((choice) => choice.title);
+          return choiceArray;
         },
-        {
-          name: "lName",
-          type: "input",
-          message: addEmployeeQuestions[1],
+        message: addEmployeeQuestions[2],
+      },
+      {
+        name: "manager",
+        type: "list",
+        choices: function () {
+          let choiceArray = results[1].map((choice) => choice.full_name);
+          return choiceArray;
         },
-        {
-          name: "role",
-          type: "list",
-          choices: function () {
-            let choiceArray = results[0].map((choice) => choice.title);
-            return choiceArray;
-          },
-          message: addEmployeeQuestions[2],
-        },
-        {
-          name: "manager",
-          type: "list",
-          choices: function () {
-            let choiceArray = results[1].map((choice) => choice.full_name);
-            return choiceArray;
-          },
-          message: addEmployeeQuestions[3],
-        },
-      ])
-      .then((answer) => 
-            connection.query(
-            `INSERT INTO EMPLOYEES (first_name, last_name, role_id, manager_id)
+        message: addEmployeeQuestions[3],
+      },
+    ])
+    .then((answer) =>
+      connection.query(
+        `INSERT INTO EMPLOYEES (first_name, last_name, role_id, manager_id)
              VALUES (?, ?, (SELECT id FROM roles WHERE title = ?),
              (SELECT id FROM (SELECT id FROM employees WHERE CONCAT(first_name," ",last_name) = ? ) AS temptable));`,
-            [answer.fName, answer.lName, answer.role, answer.manager]
-            // (first_name, last_name, role_id, manager_id) VALUES(?, ?,
-            // (SELECT id FROM roles WHERE title = ? ),
-            // (SELECT id FROM (SELECT id FROM employees WHERE CONCAT(first_name," ",last_name) = ? ) AS temptable)),
-            // [answer.fName, answer.lName, answer.role, answer.manager]
-          
-
-
-            );
-        // console.log(answer);
-        startApp();
-      }));
-  };
+        [answer.fName, answer.lName, answer.role, answer.manager]
+        // (first_name, last_name, role_id, manager_id) VALUES(?, ?,
+        // (SELECT id FROM roles WHERE title = ? ),
+        // (SELECT id FROM (SELECT id FROM employees WHERE CONCAT(first_name," ",last_name) = ? ) AS temptable)),
+        // [answer.fName, answer.lName, answer.role, answer.manager]
+      )
+    );
+  // console.log(answer);
+  startApp();
 };
 
 const removeEmployee = () => {

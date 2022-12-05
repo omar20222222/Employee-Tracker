@@ -8,4 +8,4 @@ The user should clone the repository from GitHub. This application requires Node
 
 ## Contributing
 
-Contributors should read the installation section.
+No Contributors
