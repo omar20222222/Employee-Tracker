@@ -218,7 +218,6 @@ const addEmployee = () => {
           name: "manager",
           type: "list",
           choices: function () {
-            console.log(results);
             let choiceArray = results[1].map((choice) => choice.full_name);
             return choiceArray;
           },
