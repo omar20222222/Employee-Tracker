@@ -19,4 +19,4 @@ The user should clone the repository from GitHub. This application requires Node
 
 GitHUB URL - https://github.com/omar20222222/Employee-Tracker
 
-Walk through URL -
+Walk through URL -https://drive.google.com/file/d/1rrYFng4HsaUcuUGv6DRry1rWomw701Rn/view
