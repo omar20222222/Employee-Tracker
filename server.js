@@ -43,7 +43,9 @@ const promptUser = () => {
         case "add employee":
           addEmployee();
           break;
-
+        case "Exit":
+          connection.end();
+          break;
         default:
           break;
       }
@@ -73,7 +75,7 @@ function addDepartment() {
     .then((answers) => {
       const sql = `INSERT INTO departments (department_name)
         VALUES (?)`;
-      const params = [answers.deptname];
+      const params = [answers.departname];
       db.query(sql, params, (err, result) => {
         if (err) {
           console.log(err);
@@ -110,7 +112,7 @@ function addRole() {
         message: "Please enter your salary",
       },
       {
-        type: "input",
+        type: "list",
         name: "departmentId",
         message: "Please enter department role",
         choices: ["Sales", "I.T", "Finance", "HR"],
@@ -120,7 +122,7 @@ function addRole() {
       const sql = `INSERT INTO roles (title, salary , department_id)
             VALUES (?,?,?)`;
       const params = [answers.title, answers.salary, answers.departmentId];
-
+      console.log(params);
       db.query(sql, params, (err, result) => {
         if (err) {
           return;
