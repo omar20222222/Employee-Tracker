@@ -50,10 +50,11 @@ const promptUser = () => {
     });
 };
 function viewDepartments() {
-  const sql = `SELECT * FROM department`;
+  const sql = `SELECT * FROM departments`;
 
   db.query(sql, (err, rows) => {
     if (err) {
+      console.log(err);
       return;
     }
     console.table(rows);
@@ -65,17 +66,18 @@ function addDepartment() {
     .prompt([
       {
         type: "input",
-        name: "deptname",
+        name: "departname",
         message: "Please enter your department name",
       },
     ])
     .then((answers) => {
-      const sql = `INSERT INTO department (name)
+      const sql = `INSERT INTO departments (department_name)
         VALUES (?)`;
       const params = [answers.deptname];
 
       db.query(sql, params, (err, result) => {
         if (err) {
+          console.log(err);
           return;
         }
         console.log("Department added");
@@ -170,7 +172,7 @@ function addEmployee() {
         type: "input",
         name: "managerId",
         message: "Please enter your boss id",
-        choices: ["Rooney", "Messi", "Ronaldo", "Jones"],
+        choices: ["Rooney", "Xavi", "Gerrad", "Jones"],
       },
     ])
     .then((answers) => {
