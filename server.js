@@ -2,6 +2,7 @@ const mysql = require("mysql2");
 const inquirer = require("inquirer");
 const { prompt } = require("inquirer");
 const db = require("./db/connection.js");
+const connection = require("./db/connection.js");
 
 const promptUser = () => {
   return inquirer
@@ -168,7 +169,7 @@ function addEmployee() {
         type: "input",
         name: "managerId",
         message: "Please enter your boss id",
-        choices: ["David", "Neymar", "Cristiano", "George"],
+        choices: ["Rooney", "Messi", "Ronaldo", "Jones"],
       },
     ])
     .then((answers) => {
