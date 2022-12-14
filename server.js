@@ -114,8 +114,13 @@ function addRole() {
       {
         type: "list",
         name: "departmentId",
-        message: "Please enter department role",
-        choices: ["Sales", "I.T", "Finance", "HR"],
+        message: "Please enter department",
+        choices: [
+          { name: "IT", value: 1 },
+          { name: "Finance & Accounting", value: 2 },
+          { name: "Sales & Marketing", value: 3 },
+          { name: "Operations", value: 4 },
+        ],
       },
     ])
     .then((answers) => {
