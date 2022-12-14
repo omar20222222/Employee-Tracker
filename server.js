@@ -200,12 +200,10 @@ function addEmployee() {
       db.query(sql, params, (err, result) => {
         if (err) {
           console.log(err);
-          db.end();
 
           return;
         }
         console.log("Employee added");
-        db.end();
         promptUser();
       });
     });
