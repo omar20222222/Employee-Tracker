@@ -37,10 +37,12 @@ role_id INT,
 manager_id INT,
 FOREIGN KEY
                         (role_id) REFERENCES roles
-                        (id) on
-                        delete CASCADE,
-FOREIGN KEY(manager_id)
+                        (id),
+                        
+FOREIGN KEY
+                        (manager_id)
                         REFERENCES employees
                         (id) on
-                        delete CASCADE
-);
+                        delete
+                        SET NULL
+                        );

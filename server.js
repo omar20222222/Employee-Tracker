@@ -159,21 +159,25 @@ function addEmployee() {
         message: "Please enter your last name",
       },
       {
-        type: "input",
+        type: "list",
         name: "role",
         message: "Please enter your employee role ",
         choices: [
-          "Manager",
-          "Director",
-          "Senior Software Engineer",
-          "HR Staff",
+          { name: "Full Stack Developer", value: 1 },
+          { name: "Accountant", value: 3 },
+          { name: "Sales Lead", value: 6 },
+          { name: "Project Manager", value: 7 },
         ],
       },
       {
-        type: "input",
+        type: "list",
         name: "managerId",
         message: "Please enter your boss id",
-        choices: ["Rooney", "Xavi", "Gerrad", "Jones"],
+        choices: [
+          { name: "Steve James", value: 1 },
+          { name: "Omar Abdullahi", value: 3 },
+          { name: "liban bashir", value: 5 },
+        ],
       },
     ])
     .then((answers) => {
